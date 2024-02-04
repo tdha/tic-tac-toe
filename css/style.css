@@ -129,3 +129,25 @@ footer {
     margin-top: 24px;
     /* color: #33691E; */
 }
+#winMessage {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    margin-top: 24px;
+    color: #64DD17;
+    text-transform: uppercase;
+}
+#isTie {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    margin-top: 24px;
+    color: #E91E63;
+    text-transform: uppercase;
+}

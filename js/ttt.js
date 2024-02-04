@@ -24,14 +24,30 @@ const board = {
 //     }
 // }
 
+const winCombo = {
+    topRow: [board.tLeft, board.tCenter, board.tRight],
+    middleRow: [board.mLeft, board.mCenter, board.mRight],
+    bottomRow: [board.lLeft, board.lCenter, board.lRight],
+    leftColumn: [board.tLeft, board.mLeft, board.lLeft],
+    middleColumn: [board.tCenter, board.mCenter, board.lCenter],
+    rightColumn: [board.tRight, board.mRight, board.lRight],
+    diagonalUp: [board.lLeft, board.mCenter, board.tRight],
+    diagonalDown: [board.tLeft, board.mCenter, board.lRight]
+};
+
 const chooseError = document.getElementById('chooseError');
 const turnInstruction = document.getElementById('turnInstruction');
+const winMessage = document.getElementById('winMessage');
+const tieMessage =  document.getElementById('isTie');
 
 /*----- state variables -----*/
 const state = {
     winner: false,
     player: '',
 };
+
+let winningPlayer = '';
+let isTie = 'false';
 
 const currentPlayer = state.player;
 const resetButton = document. getElementById('resetButton');
@@ -110,6 +126,7 @@ const chooseSquare = function(square) {
 };
 
 const switchPlayer = function() {
+    winningPlayer = state.player;
     if (state.player === 'player1') {
         state.player = 'player2';
     } else {
@@ -118,7 +135,43 @@ const switchPlayer = function() {
 };
 
 const checkForWinner = function() {
+    winningPlayer = '';
 
+    for (const combo in winCombo) {
+        const squares = winCombo[combo];
+        const piece = squares[0].classList.contains('naught') ? 'player1' : 'player2';
+
+        if (piece !== '' && squares.every(function(square) {
+            return square.classList.contains(piece === 'player1' ? 'naught' : 'cross');
+        })) {
+            state.winner = true;
+            winningPlayer = piece;
+            winMessage.innerText = 'Player ' + winningPlayer.charAt(winningPlayer.length - 1) + ' wins!';
+            winMessage.style.display = 'block';
+            turnInstruction.style.display = 'none';
+            render();
+            return;
+        }
+    }
+
+    // Check for a tie
+    isTie = true;
+    for (const key in board) {
+        if (board.hasOwnProperty(key) && board[key] !== null && board[key].innerHTML === '') {
+            isTie = false;
+            break;
+        }
+    }
+
+    if (isTie) {
+        state.winner = true;
+        document.getElementById('isTie').innerHTML = "&#9825; It's a tie!";
+        document.getElementById('isTie').style.display = 'block';
+        turnInstruction.style.display = 'none';
+        winMessage.style.display = 'none'; // hide winMessage if it's a tie
+        render();
+        return;
+    }
 };
 
 function resetGame() {
@@ -133,11 +186,14 @@ function resetGame() {
     // reset state variables
     state.winner = false;
     state.player = 'player1';
+    isTie = false;
     // messages
     chooseError.innerText = '';
     turnInstruction.innerHTML = "Player 1, it's your turn.";
     turnInstruction.style.display = 'block';
     turnInstruction.style.color = '#651FFF';
+    winMessage.style.display = 'none';
+    tieMessage.style.display = 'none';
     console.log('Reset complete. Checking instructions:', turnInstruction.innerHTML );
 };
 
