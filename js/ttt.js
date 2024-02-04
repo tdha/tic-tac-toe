@@ -34,6 +34,7 @@ const state = {
 };
 
 const currentPlayer = state.player;
+const resetButton = document. getElementById('resetButton');
 
 	/*----- cached elements  -----*/
 const elements = {
@@ -54,7 +55,15 @@ function addClickListenersToBoard() {
     });
 };
 
+resetButton.addEventListener('click', function () {
+    resetGame();
+});
+
 	/*----- functions -----*/
+const render = function() {
+    console.log(state);
+}
+
 const init = function() {
     // initialise the state variables
     state.winner = false;
@@ -65,10 +74,6 @@ const init = function() {
     // render();
     turnInstruction.style.color = '#651FFF';
     turnInstruction.innerText = "Player 1, it's your turn.";
-};
-
-const render = function() {
-
 };
 
 const chooseSquare = function(square) {
@@ -115,6 +120,23 @@ const switchPlayer = function() {
 const checkForWinner = function() {
 
 };
+
+function resetGame() {
+    // clear the board
+    Object.values(board).forEach(function(square) {
+        if (square !== null) {
+            square.innerHTML = '';
+            square.classList.remove('naught', 'cross');
+        }
+    });
+    // reset state variables
+    state.winner = false;
+    state.player = 'player1';
+    // messages
+    chooseError.innerText = '';
+    turnInstruction.innerHTML = "Player 1, it's your turn.";
+    turnInstruction.style.color = '#651FFF';
+}
 
 init();
 
