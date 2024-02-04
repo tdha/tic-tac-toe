@@ -24,6 +24,8 @@ const board = {
 //     }
 // }
 
+const chooseError = document.getElementById('chooseError');
+const turnInstruction = document.getElementById('turnInstruction');
 
 /*----- state variables -----*/
 const state = {
@@ -43,6 +45,7 @@ function addClickListenersToBoard() {
     Object.entries(board).forEach(([key, square]) => {
         if (square !== null) {
             square.addEventListener('click', function() {
+                console.log('Square clicked', key);
                 chooseSquare(square);
             });
         // } else {
@@ -59,7 +62,9 @@ const init = function() {
     // render those variables to the page
     // wait for the user to click a square
     addClickListenersToBoard();
-    render();
+    // render();
+    turnInstruction.style.color = '#651FFF';
+    turnInstruction.innerText = "Player 1, it's your turn.";
 };
 
 const render = function() {
@@ -67,6 +72,7 @@ const render = function() {
 };
 
 const chooseSquare = function(square) {
+    console.log('Click event triggered');
     // check if there is a winner - if not, execute function
     if (!state.winner) {
         if (!square.innerHTML) {
@@ -75,17 +81,27 @@ const chooseSquare = function(square) {
             square.innerHTML = piece;
             // dynamically set color based on the player
             square.classList.add((state.player === 'player1') ? 'naught' : 'cross');
+            chooseError.innerText = '';
+            chooseError.style.display = 'none';
+            turnInstruction.style.display = 'block';
+            turnInstruction.style.color = (state.player === 'player1') ? '#00ACC1' : '#651FFF';
+        } else {
+            // the square is already taken
+            // console.log('This square is taken. Choose an empty square.');
+            chooseError.innerText = 'This square is taken. Choose an empty square.';
+            // show turnInstruction when an occupied square is clicked
+            chooseError.style.display = 'block';
+            turnInstruction.style.display = 'none';
+            return;
         }
-    } else {
-    // the square is already taken
-    console.log('This square is already taken. Choose an empty square.');
+        // switch to next player
+        switchPlayer();
+        // check for a winner after each move
+        checkForWinner();
+        turnInstruction.innerText = `Player ${state.player.charAt(state.player.length - 1)}, it's your turn!`;
+        // render updated state
+        render();
     }
-    // switch to next player
-    switchPlayer();
-    // check for a winner after each move
-    checkForWinner();
-    // render updated state
-    render();
 };
 
 const switchPlayer = function() {
