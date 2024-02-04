@@ -24,6 +24,9 @@ button {
     border: 0   ;
     font-size: 1rem;
 }
+button:hover {
+    background-color: #B0BEC5;
+}
 main {
     /* background-color: lavender; */
     display: grid;

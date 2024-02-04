@@ -122,6 +122,7 @@ const checkForWinner = function() {
 };
 
 function resetGame() {
+    console.log('Resetting the game...')
     // clear the board
     Object.values(board).forEach(function(square) {
         if (square !== null) {
@@ -135,8 +136,10 @@ function resetGame() {
     // messages
     chooseError.innerText = '';
     turnInstruction.innerHTML = "Player 1, it's your turn.";
+    turnInstruction.style.display = 'block';
     turnInstruction.style.color = '#651FFF';
-}
+    console.log('Reset complete. Checking instructions:', turnInstruction.innerHTML );
+};
 
 init();
 
