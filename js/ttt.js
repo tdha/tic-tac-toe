@@ -93,7 +93,7 @@ const init = function() {
 };
 
 const chooseSquare = function(square) {
-    console.log('Click event triggered');
+    // console.log('Click event triggered');
     // check if there is a winner - if not, execute function
     if (!state.winner) {
         if (!square.innerHTML) {
@@ -149,6 +149,14 @@ const checkForWinner = function() {
             winMessage.innerText = 'Player ' + winningPlayer.charAt(winningPlayer.length - 1) + ' wins!';
             winMessage.style.display = 'block';
             turnInstruction.style.display = 'none';
+            // log winCombo to check
+            // console.log('WinCombo structure:', winCombo);
+            // add background highlight on background when won
+            squares.forEach(function(square) {
+                console.log('Adding winSquare to square', square);
+                square.classList.add('winSquare');
+                // square.style.backgroundColor = '#EF5350';
+            });
             render();
             return;
         }
@@ -175,12 +183,12 @@ const checkForWinner = function() {
 };
 
 function resetGame() {
-    console.log('Resetting the game...')
+    // console.log('Resetting the game...')
     // clear the board
     Object.values(board).forEach(function(square) {
         if (square !== null) {
             square.innerHTML = '';
-            square.classList.remove('naught', 'cross');
+            square.classList.remove('naught', 'cross', 'winSquare');
         }
     });
     // reset state variables
@@ -194,7 +202,7 @@ function resetGame() {
     turnInstruction.style.color = '#651FFF';
     winMessage.style.display = 'none';
     tieMessage.style.display = 'none';
-    console.log('Reset complete. Checking instructions:', turnInstruction.innerHTML );
+    // console.log('Reset complete. Checking instructions:', turnInstruction.innerHTML );
 };
 
 init();

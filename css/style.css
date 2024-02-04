@@ -82,6 +82,10 @@ footer {
     font-variation-settings:
     "slnt" 0;
 }
+.winSquare {
+    background-color: #F9FBE7;
+    /* background-color: #EF5350; */
+}
 #topLeft {
     grid-column: span 1;
 }
