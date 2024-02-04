@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+body {
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+    height: 100vh;
+    max-width: 600px;
+    display: grid;
+    align-items: flex-start;
+}
+header {
+    background-color: lightyellow;
+}
+button {
+    padding: 12px 24px;
+    background-color: deeppink;
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+main {
+    background-color: lavender;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: flex-start;
+}
+div {
+    aspect-ratio: 1/1;
+}
+footer {
+    background-color: lightcyan;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pieces {
+    font-size: 8rem;
+}
+.naught {
+    color: red;
+}
+.cross {
+    color: blue;
+}
+.interButton {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+}
+#topLeft {
+    grid-column: span 1;
+}
+#topCenter {
+    grid-column: span 1;
+}
+#topRight {
+    grid-column: span 1;
+}
+#midLeft {
+    grid-column: span 1;
+}
+#midCenter {
+    grid-column: span 1;
+}
+#midRight {
+    grid-column: span 1;
+}
+#lowLeft {
+    grid-column: span 1;
+}
+#lowCenter {
+    grid-column: span 1;
+}
+#lowRight {
+    grid-column: span 1;
+}
